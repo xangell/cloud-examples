@@ -1,0 +1,66 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: cicd-demo
+spec:
+  params:
+  - name: git-repo-name
+    value: $(body.repository.name)
+
+---
+
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: cicd-demo
+spec:
+  params:
+  - name: git-repo-name
+    description: The name of the deployment to be created / patched
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      name: build-deploy-$(params.git-repo-name)-$(uid)
+    spec:
+      serviceAccountName: pipeline
+      pipelineRef:
+        name: cicd-demo
+      resources:
+        - name: Git Repo
+          resourceRef:
+            name: git-9b4w40
+      workspaces:
+        - name: shared-data
+          persistentVolumeClaim:
+            claimName: cicd-demo
+
+
+---
+
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: cicd-demo
+spec:
+  serviceAccountName: pipeline
+  triggers:
+  - bindings:
+    - ref: cicd-demo
+    template:
+      name: cicd-demo
+
+
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: el-cicd-demo-route"
+spec:
+  to:
+    kind: Service
+    name: el-cicd-demo
+    weight: 100
+  port:
+    targetPort: http-listener
+  wildcardPolicy: None
