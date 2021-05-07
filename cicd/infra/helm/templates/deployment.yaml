@@ -4,6 +4,17 @@ metadata:
   name: {{ .Chart.Name }}-deployment
   labels:
     app: {{ .Chart.Name }}
+  annotations:
+    image.openshift.io/triggers: |-
+      [
+        {
+          "from": {
+            "kind": "ImageStreamTag", 
+            "name": "cicd-demo:latest"
+          },
+          "fieldPath": "spec.template.spec.containers[0].image"
+        }
+      ]
 spec:
   replicas: 1
   selector:
