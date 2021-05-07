@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cicd-demo
+spec:
+  destination:
+    name: ''
+    namespace: cicd-demo
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: cicd/infra/helm
+    repoURL: 'https://github.com/xangell/cloud-examples.git'
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  ignoreDifferences:
+  - group: apps
+    kind: Deployment
+    jsonPointers:
+    - /spec/template/spec/containers
