@@ -29,9 +29,9 @@ spec:
       - name: cicd
         resources:
           limits: 
-            cpu: 200m
+            cpu: 500m
           requests:
-            cpu: 100m
+            cpu: 300m
         image: image-registry.openshift-image-registry.svc:5000/cicd-demo/cicd-demo
         ports:
         - containerPort: 8080
