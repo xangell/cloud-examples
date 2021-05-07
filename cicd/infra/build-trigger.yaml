@@ -24,6 +24,11 @@ spec:
       name: build-deploy-$(uid)
     spec:
       serviceAccountName: pipeline
+      params:
+        - name: image
+          value: 'image-registry.openshift-image-registry.svc:5000/cicd-demo/cicd-demo'
+        - name: path
+          value: './cicd'
       pipelineRef:
         name: cicd-demo
       resources:

@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: {{ .Chart.Name }}-config
 data:
-  SERVICE: http://example-service:8080
+  SERVICE: http://example-service-service:8080

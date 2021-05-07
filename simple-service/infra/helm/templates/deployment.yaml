@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: service
-        image: image-registry.openshift-image-registry.svc:5000/example-service/example-service
+        image: image-registry.openshift-image-registry.svc:5000/cicd-demo/simple-service
         ports:
         - containerPort: 8080
           name: http

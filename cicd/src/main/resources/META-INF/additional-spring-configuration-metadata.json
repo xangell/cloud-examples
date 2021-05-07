@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "de.demo.cicd.service",
+  "type": "java.lang.String",
+  "description": "A description for 'de.demo.cicd.service'"
+}]}
