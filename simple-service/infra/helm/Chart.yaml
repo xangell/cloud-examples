@@ -1,0 +1,4 @@
+apiVersion: v1
+description: CiCd demo chart
+name: example-service
+version: 1.0.0

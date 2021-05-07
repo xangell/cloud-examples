@@ -3,3 +3,7 @@ management:
     health:
       probes:
         enabled: true
+de:
+ demo:
+  cicd:
+   service: ${SERVICE:http://localhost:8081}
