@@ -3,6 +3,7 @@ package de.demo.cicd;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -20,6 +21,14 @@ public class HelloController {
 	public Mono<String> sayHello() {
 		WebClient client = WebClient.create(configuration.service);
 		return client.get().uri("/service/sayhello").accept(MediaType.TEXT_PLAIN)
+				.retrieve().bodyToMono(String.class);
+	}
+	
+	@GetMapping("/sayhello/{name}")
+	public Mono<String> sayHelloToPerson(@PathVariable(value="name") String name) {
+		WebClient client = WebClient.create(configuration.service);
+		String url = String.format("/service/sayhello/%s", name);
+		return client.get().uri(url).accept(MediaType.TEXT_PLAIN)
 				.retrieve().bodyToMono(String.class);
 	}
 
