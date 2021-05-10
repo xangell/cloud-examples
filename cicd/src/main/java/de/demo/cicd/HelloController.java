@@ -24,14 +24,14 @@ public class HelloController {
 	}
 	
 	
-	/*
+	
 	@GetMapping("/sayhello/{name}")
 	public Mono<String> sayHelloToPerson(@PathVariable(value="name") String name) {
 		WebClient client = WebClient.create(configuration.service);
 		String url = String.format("/service/sayhello/%s", name);
 		return client.get().uri(url).accept(MediaType.TEXT_PLAIN)
 				.retrieve().bodyToMono(String.class);
-	}*/
+	}
 
 	@GetMapping("/error")
 	public Mono<String> generateError() {
