@@ -39,16 +39,3 @@ spec:
         envFrom:
         - configMapRef:
             name: {{ .Chart.Name }}-config
-        livenessProbe:
-          httpGet:
-            path: /actuator/health/liveness
-            port: 8080
-          initialDelaySeconds: 60
-          timeoutSeconds: 3
-        readinessProbe:
-          httpGet:
-            path: /actuator/health/readiness
-            port: 8080
-          initialDelaySeconds: 60
-          timeoutSeconds: 3
-          periodSeconds: 30
