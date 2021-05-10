@@ -1,5 +1,10 @@
 package de.demo.cicd;
 
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.Cipher;
+import javax.crypto.NoSuchPaddingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +29,7 @@ public class HelloController {
 				.retrieve().bodyToMono(String.class);
 	}
 	
+	
 	@GetMapping("/sayhello/{name}")
 	public Mono<String> sayHelloToPerson(@PathVariable(value="name") String name) {
 		WebClient client = WebClient.create(configuration.service);
@@ -37,6 +43,21 @@ public class HelloController {
 		WebClient client = WebClient.create(configuration.service);
 		return client.get().uri("/service/error").accept(MediaType.TEXT_PLAIN)
 				.retrieve().bodyToMono(String.class);
+	}
+	
+	@GetMapping("/load")
+	public Mono<String> generateLoad() {
+		for(int i = 0; i < 10000; i++)
+		{
+			 try {
+				Cipher cipher = Cipher.getInstance("AES/CTR/NoPadding");
+				cipher.update(new byte[] {1, 5, 2, 7, 9 ,9});
+			} catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+				
+				e.printStackTrace();
+			}
+		}
+		return Mono.just("done");
 	}
 
 }
