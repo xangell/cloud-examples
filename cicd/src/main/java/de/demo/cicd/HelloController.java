@@ -42,7 +42,7 @@ public class HelloController {
 	
 	@GetMapping("/load")
 	public Mono<String> generateLoad() {
-		for(int i = 0; i < 100000000; i++)
+		for(int i = 0; i < 10000000; i++)
 		{
 			Math.atan(Math.sqrt(Math.pow(i, 10)));
 		}
