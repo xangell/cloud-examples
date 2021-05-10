@@ -1,10 +1,4 @@
 package de.demo.cicd;
-
-import java.security.NoSuchAlgorithmException;
-
-import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,15 +41,9 @@ public class HelloController {
 	
 	@GetMapping("/load")
 	public Mono<String> generateLoad() {
-		for(int i = 0; i < 10000; i++)
+		for(int i = 0; i < 10000000; i++)
 		{
-			 try {
-				Cipher cipher = Cipher.getInstance("AES/CTR/NoPadding");
-				cipher.update(new byte[] {1, 5, 2, 7, 9 ,9});
-			} catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
-				
-				e.printStackTrace();
-			}
+			 int a = i % 50;
 		}
 		return Mono.just("done");
 	}
