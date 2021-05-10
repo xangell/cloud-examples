@@ -24,13 +24,14 @@ public class HelloController {
 	}
 	
 	
+	/*
 	@GetMapping("/sayhello/{name}")
 	public Mono<String> sayHelloToPerson(@PathVariable(value="name") String name) {
 		WebClient client = WebClient.create(configuration.service);
 		String url = String.format("/service/sayhello/%s", name);
 		return client.get().uri(url).accept(MediaType.TEXT_PLAIN)
 				.retrieve().bodyToMono(String.class);
-	}
+	}*/
 
 	@GetMapping("/error")
 	public Mono<String> generateError() {
@@ -41,9 +42,9 @@ public class HelloController {
 	
 	@GetMapping("/load")
 	public Mono<String> generateLoad() {
-		for(int i = 0; i < 10000000; i++)
+		for(int i = 0; i < 100000000; i++)
 		{
-			 int a = i % 50;
+			Math.atan(Math.sqrt(Math.pow(i, 10)));
 		}
 		return Mono.just("done");
 	}
